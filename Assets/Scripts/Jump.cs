@@ -8,6 +8,7 @@ public class Jump : MonoBehaviour
     public float jumpSpeed;
     public float gravityScale;
 
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
