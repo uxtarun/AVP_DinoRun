@@ -116,6 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundSpawner: {fileID: 0}
+  obstaclePrefabs: []
+  noObstacleChance: 0.3
   obstaclePrefab: {fileID: 0}
 --- !u!1 &4750076679184124281
 GameObject:
