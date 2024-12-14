@@ -1373,6 +1373,10 @@ PrefabInstance:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 5041437011455469821, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
+      propertyPath: groundCheckDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6366062045862448027, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 

@@ -9,6 +9,9 @@ public class Jump : MonoBehaviour
     public float gravityScale;
     private AudioSource jumpSound;     // AudioSource for the jump sound
     private AudioSource gameOverSound; // AudioSource for the game-over sound
+    public float groundCheckDistance = 0.2f; // Distance for ground check
+    public LayerMask groundLayer; // Layer for ground detection
+    private bool isGrounded; // Whether the player is on the ground
 
     private void Start()
     {
@@ -19,16 +22,22 @@ public class Jump : MonoBehaviour
         gameOverSound = transform.GetChild(1).GetComponent<AudioSource>();
     }
 
+
+
     private void Update()
     {
+        // Check if the player is on the ground using raycast from the player's feet
+        isGrounded = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, groundLayer);
+       // Debug.Log("Grounded");
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Play jump sound and apply force
+            Debug.Log("Jump");
             if (jumpSound != null)
                 jumpSound.Play();
 
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode.Impulse);
         }
+       
     }
 
     private void FixedUpdate()

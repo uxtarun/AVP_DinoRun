@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 9203569413770167351}
   - component: {fileID: -8736613078449656596}
   - component: {fileID: 8021121462350196603}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundTilePlane
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -117,11 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundSpawner: {fileID: 0}
   obstaclePrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8752577512220889312, guid: 02ba9695d4f8c47cfad8d96e3ebc8fec, type: 3}
   noObstacleChance: 0.3
-  obstaclePrefab: {fileID: 8752577512220889312, guid: 02ba9695d4f8c47cfad8d96e3ebc8fec, type: 3}
 --- !u!1 &4750076679184124281
 GameObject:
   m_ObjectHideFlags: 0

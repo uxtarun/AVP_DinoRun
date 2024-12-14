@@ -285,6 +285,10 @@ MonoBehaviour:
   rb: {fileID: 6638850422270763083}
   jumpSpeed: 20
   gravityScale: 5
+  groundCheckDistance: 6.08
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1870167345925354337
 GameObject:
   m_ObjectHideFlags: 0
