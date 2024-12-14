@@ -5,6 +5,7 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     public Rigidbody rb;
+    public AudioSource jumpSound; 
     public float jumpSpeed;
     public float gravityScale;
 
@@ -14,6 +15,7 @@ public class Jump : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode.Impulse);
+            jumpSound.Play();
         }
     }
 

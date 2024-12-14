@@ -164,16 +164,16 @@ AudioSource:
   m_GameObject: {fileID: 104897260}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -815273733899425616, guid: 1751e80c7e5e447888ab7a1b0a8c9579, type: 2}
   m_audioClip: {fileID: 8300000, guid: b4947974b577d454fa93d3fa9e32264f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 43
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1366,16 +1366,16 @@ AudioSource:
   m_GameObject: {fileID: 1734889992}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 618122000963532241, guid: 1751e80c7e5e447888ab7a1b0a8c9579, type: 2}
   m_audioClip: {fileID: 8300000, guid: c1a386bfde580448892dbeb6932407b4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 48
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1530,6 +1530,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8975512342899888107, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 8516979873753249112, guid: 1751e80c7e5e447888ab7a1b0a8c9579, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
