@@ -10,14 +10,21 @@ public class GameManager : MonoBehaviour
 
     // References to audio sources
     public AudioSource gameOverAudio; // Reference to the game_over AudioSource
-    public AudioSource backgroundAudio; // Reference to the F_bg AudioSource
-    public AudioSource runningAudio; // Reference to the F_running AudioSource
+    public AudioSource F_bg; // Reference to the F_bg AudioSource
+    public AudioSource F_running; // Reference to the F_running AudioSource
 
     private bool gameStarted = false;  // Track whether the game has started
 
     private void Start()
     {
         // Pause the game initially
+        GameObject backgroundAudioObject = GameObject.FindGameObjectWithTag("backgroundAudio");
+        GameObject footstepAudioObject = GameObject.FindGameObjectWithTag("footstepAudio");
+        if (backgroundAudioObject != null && footstepAudioObject != null)
+        {
+            F_bg = backgroundAudioObject.GetComponent<AudioSource>();
+            F_running = footstepAudioObject.GetComponent<AudioSource>();
+        }
         Time.timeScale = 0f;
         Debug.Log("Game Paused: Press Space to Start.");
     }
@@ -37,10 +44,13 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         Time.timeScale = 1f;
 
+        F_bg.Play();
+        F_running.Play();
+
         // Play background audio if it's not already playing
-        if (!backgroundAudio.isPlaying)
+        if (!F_bg.isPlaying)
         {
-            backgroundAudio.Play();
+            F_bg.Play();
         }
 
         Debug.Log("Game Started.");
@@ -53,15 +63,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over triggered!");
 
         // Stop all relevant audio
-        if (backgroundAudio.isPlaying)
+        if (F_bg.isPlaying)
         {
-            backgroundAudio.Stop();
+            F_bg.Stop();
             Debug.Log("Background audio stopped.");
         }
 
-        if (runningAudio.isPlaying)
+        if (F_running.isPlaying)
         {
-            runningAudio.Stop();
+            F_running.Stop();
             Debug.Log("Running audio stopped.");
         }
 

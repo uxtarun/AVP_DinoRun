@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Obstacle
+  - backgroundAudio
+  - footstepAudio
   layers:
   - Default
   - TransparentFX

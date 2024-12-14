@@ -856,8 +856,8 @@ MonoBehaviour:
   finalScoreText: {fileID: 961499099}
   scoreManager: {fileID: 1669789284}
   gameOverAudio: {fileID: 911508842}
-  backgroundAudio: {fileID: 1308476812}
-  runningAudio: {fileID: 1977576654}
+  F_bg: {fileID: 0}
+  F_running: {fileID: 0}
 --- !u!82 &1137388927
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1011,11 +1011,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea420fc07d7c14873a3d2cd7ba8bfe12, type: 3}
---- !u!82 &1308476812 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 7232145121180776906, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
-  m_PrefabInstance: {fileID: 1973538602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1458693381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,8 +1295,8 @@ MonoBehaviour:
   finalScoreText: {fileID: 0}
   scoreManager: {fileID: 0}
   gameOverAudio: {fileID: 0}
-  backgroundAudio: {fileID: 0}
-  runningAudio: {fileID: 0}
+  F_bg: {fileID: 0}
+  F_running: {fileID: 0}
 --- !u!1001 &1973538602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1313,6 +1308,10 @@ PrefabInstance:
     - target: {fileID: 1534457932449321102, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870167345925354337, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
+      propertyPath: m_TagString
+      value: footstepAudio
       objectReference: {fileID: 0}
     - target: {fileID: 1881146535432456053, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1363,6 +1362,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3965087981875159730, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965087981875159730, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0.062
       objectReference: {fileID: 0}
@@ -1379,6 +1382,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7232145121180776906, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232145121180776906, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0.077
       objectReference: {fileID: 0}
@@ -1390,16 +1397,16 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 8516979873753249112, guid: 1751e80c7e5e447888ab7a1b0a8c9579, type: 2}
+    - target: {fileID: 9028481841050485911, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
+      propertyPath: m_TagString
+      value: backgroundAudio
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7244118846365242552, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
---- !u!82 &1977576654 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3965087981875159730, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
-  m_PrefabInstance: {fileID: 1973538602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2100550465
 PrefabInstance:
   m_ObjectHideFlags: 0
