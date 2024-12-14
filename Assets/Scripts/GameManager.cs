@@ -8,15 +8,34 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverScreen;
     public Text finalScoreText;  // Text UI to display the final score
     public ScoreManager scoreManager;  // Reference to the ScoreManager to get the score
-    public AudioSource gameOverSound;
+    private bool gameStarted = false;  // Track whether the game has started
 
+    private void Start()
+    {
+        // Pause the game initially
+        Time.timeScale = 0f;
+        Debug.Log("Game Paused: Press Space to Start.");
+    }
+
+    private void Update()
+    {
+        // Check if the game is not started and spacebar is pressed
+        if (!gameStarted && Input.GetKeyDown(KeyCode.Space))
+        {
+            StartGame();
+        }
+    }
+
+    private void StartGame()
+    {
+        // Resume the game
+        gameStarted = true;
+        Time.timeScale = 1f;
+        Debug.Log("Game Started.");
+    }
 
     public void GameOver()
     {
-        if (gameOverSound != null)
-        {
-            gameOverSound.Play();
-        }
         // Show the Game Over screen
         gameOverScreen.SetActive(true);
         Debug.Log("Game Over triggered!");
