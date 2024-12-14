@@ -8,10 +8,15 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverScreen;
     public Text finalScoreText;  // Text UI to display the final score
     public ScoreManager scoreManager;  // Reference to the ScoreManager to get the score
+    public AudioSource gameOverSound;
 
 
     public void GameOver()
     {
+        if (gameOverSound != null)
+        {
+            gameOverSound.Play();
+        }
         // Show the Game Over screen
         gameOverScreen.SetActive(true);
         Debug.Log("Game Over triggered!");
