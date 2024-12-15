@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundTile: {fileID: 3006722764248174831, guid: 757c2605f698f4387a8cb90c1a6130a0, type: 3}
-  nextSapwnPoint: {fileID: 1458693381}
+  nextSpawnPoint: {fileID: 505182843}
 --- !u!4 &495881591
 Transform:
   m_ObjectHideFlags: 0
@@ -554,6 +554,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &505182843 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5667976957662265784, guid: ea420fc07d7c14873a3d2cd7ba8bfe12, type: 3}
+  m_PrefabInstance: {fileID: 1507178557}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &911508842 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 2221480391948916816, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
@@ -1398,6 +1403,10 @@ PrefabInstance:
     - target: {fileID: 4170934511650127200, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5041437011455469821, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
+      propertyPath: jumpSpeed
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 5041437011455469821, guid: 6946aa0efdf6d486794442b29449e324, type: 3}
       propertyPath: groundCheckDistance
