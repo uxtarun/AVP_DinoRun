@@ -17,7 +17,7 @@ public class GroundSpawner : MonoBehaviour
     {
         GameObject temp = Instantiate(groundTile, nextSpawnPoint.position, Quaternion.identity);
         nextSpawnPoint = temp.transform.GetChild(1);
-        Debug.Log(nextSpawnPoint.position);
+        
     }
     // Start is called before the first frame update
     void Start()

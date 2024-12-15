@@ -10,8 +10,10 @@ public class Jump : MonoBehaviour
     private AudioSource jumpSound;     // AudioSource for the jump sound
     private AudioSource gameOverSound; // AudioSource for the game-over sound
     public float groundCheckDistance = 0.2f; // Distance for ground check
-    public LayerMask groundLayer; // Layer for ground detection
+    public LayerMask Ground; // Layer for ground detection
     private bool isGrounded; // Whether the player is on the ground
+    private int jumpCount = 0; // Counter to track the number of jumps
+    private int maxJumps = 1; // Maximum number of jumps allowed
 
     private void Start()
     {
@@ -22,22 +24,25 @@ public class Jump : MonoBehaviour
         gameOverSound = transform.GetChild(1).GetComponent<AudioSource>();
     }
 
-
-
     private void Update()
     {
-        // Check if the player is on the ground using raycast from the player's feet
-        isGrounded = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, groundLayer);
-       // Debug.Log("Grounded");
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Check if the player is on the ground using raycast
+        isGrounded = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, Ground);
+        
+        // Reset jump count when the player is grounded
+        if (isGrounded)
         {
-            Debug.Log("Jump");
-            if (jumpSound != null)
-                jumpSound.Play();
-
-            rb.AddForce(Vector2.up * jumpSpeed, ForceMode.Impulse);
+            jumpCount = 0;
+           // Debug.Log("Grounded");
         }
-       
+
+        // Allow jumping only if the jump count is less than maxJumps
+        if (Input.GetKeyDown(KeyCode.Space)) // && jumpCount < maxJumps)
+        {
+            JumpAction();
+            
+
+        }
     }
 
     private void FixedUpdate()
@@ -58,5 +63,21 @@ public class Jump : MonoBehaviour
             // Call the Game Over method in GameManager
             FindObjectOfType<GameManager>().GameOver();
         }
+    }
+
+    private void JumpAction()
+    {
+        // Reset Y velocity to ensure consistent jumping
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+        // Apply the jump force
+        rb.AddForce(Vector2.up * jumpSpeed, ForceMode.Impulse);
+
+        // Increment the jump count
+        jumpCount++;
+
+        // Play the jump sound
+        if (jumpSound != null)
+            jumpSound.Play();
     }
 }

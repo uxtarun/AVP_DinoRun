@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public Text finalScoreText;  // Text UI to display the final score
     public ScoreManager scoreManager;  // Reference to the ScoreManager to get the score
 
+    // UI elements to hide once the game starts
+    public GameObject uiElementToHide; // Reference to the UI element to hide after the game starts
+
     // References to audio sources
     public AudioSource gameOverAudio;
     public AudioSource F_bg;
@@ -45,6 +48,13 @@ public class GameManager : MonoBehaviour
     {
         gameStarted = true;
         Time.timeScale = 1f; // Resume the game
+
+        // Hide the UI element once the game starts
+        if (uiElementToHide != null)
+        {
+            uiElementToHide.SetActive(false);
+            Debug.Log("UI Element hidden after game start.");
+        }
 
         // Play background and footstep audios
         if (F_bg != null && !F_bg.isPlaying)
