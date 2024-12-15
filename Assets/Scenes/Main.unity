@@ -599,7 +599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 627.02, y: 230}
+  m_AnchoredPosition: {x: 307, y: 196}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961499097
@@ -615,6 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1109708550}
+  gameOverScoreText: {fileID: 1109708550}
 --- !u!222 &961499098
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -650,13 +651,13 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 50
-    m_Alignment: 0
+    m_Alignment: 2
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Score
+  m_Text: 
 --- !u!1001 &967528299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -812,6 +813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 0}
+  gameOverScoreText: {fileID: 0}
 --- !u!1 &1137388922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,6 +1261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 961499099}
+  gameOverScoreText: {fileID: 1109708550}
 --- !u!4 &1669789285
 Transform:
   m_ObjectHideFlags: 0
@@ -1297,8 +1300,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 1753861327}
-  finalScoreText: {fileID: 0}
-  scoreManager: {fileID: 0}
+  finalScoreText: {fileID: 1109708550}
+  scoreManager: {fileID: 961499097}
   gameOverAudio: {fileID: 0}
   F_bg: {fileID: 0}
   F_running: {fileID: 0}

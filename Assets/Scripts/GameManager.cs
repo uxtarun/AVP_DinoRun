@@ -9,29 +9,32 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;  // Reference to the ScoreManager to get the score
 
     // References to audio sources
-    public AudioSource gameOverAudio; // Reference to the game_over AudioSource
-    public AudioSource F_bg; // Reference to the F_bg AudioSource
-    public AudioSource F_running; // Reference to the F_running AudioSource
+    public AudioSource gameOverAudio;
+    public AudioSource F_bg;
+    public AudioSource F_running;
 
-    private bool gameStarted = false;  // Track whether the game has started
+    private bool gameStarted = false; // Track whether the game has started
 
     private void Start()
     {
-        // Pause the game initially
+        // Attempt to assign background and footstep audio
         GameObject backgroundAudioObject = GameObject.FindGameObjectWithTag("backgroundAudio");
         GameObject footstepAudioObject = GameObject.FindGameObjectWithTag("footstepAudio");
-        if (backgroundAudioObject != null && footstepAudioObject != null)
-        {
+
+        if (backgroundAudioObject != null)
             F_bg = backgroundAudioObject.GetComponent<AudioSource>();
+
+        if (footstepAudioObject != null)
             F_running = footstepAudioObject.GetComponent<AudioSource>();
-        }
+
+        // Pause the game initially
         Time.timeScale = 0f;
         Debug.Log("Game Paused: Press Space to Start.");
     }
 
     private void Update()
     {
-        // Check if the game is not started and spacebar is pressed
+        // Check if the game has not started and spacebar is pressed
         if (!gameStarted && Input.GetKeyDown(KeyCode.Space))
         {
             StartGame();
@@ -40,59 +43,60 @@ public class GameManager : MonoBehaviour
 
     private void StartGame()
     {
-        // Resume the game
         gameStarted = true;
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // Resume the game
 
-        F_bg.Play();
-        F_running.Play();
-
-        // Play background audio if it's not already playing
-        if (!F_bg.isPlaying)
-        {
+        // Play background and footstep audios
+        if (F_bg != null && !F_bg.isPlaying)
             F_bg.Play();
-        }
+
+        if (F_running != null && !F_running.isPlaying)
+            F_running.Play();
 
         Debug.Log("Game Started.");
     }
 
     public void GameOver()
     {
-        // Show the Game Over screen
-        gameOverScreen.SetActive(true);
         Debug.Log("Game Over triggered!");
+        gameStarted = false;
 
-        // Stop all relevant audio
-        if (F_bg.isPlaying)
+        // Show the Game Over screen
+        if (gameOverScreen != null)
         {
-            F_bg.Stop();
-            Debug.Log("Background audio stopped.");
-        }
-
-        if (F_running.isPlaying)
-        {
-            F_running.Stop();
-            Debug.Log("Running audio stopped.");
-        }
-
-        if (!gameOverAudio.isPlaying)
-        {
-            gameOverAudio.Play(); // Play game over sound once
-            Debug.Log("Game Over audio played.");
+            gameOverScreen.SetActive(true);
+            Debug.Log("Game Over Screen Activated.");
         }
 
         // Update the final score text
-        finalScoreText.text = "Final Score: " + Mathf.FloorToInt(scoreManager.GetScore()).ToString();
-        Debug.Log("Game Over Screen Active: " + gameOverScreen.activeSelf);
+        if (scoreManager != null && finalScoreText != null)
+        {
+            finalScoreText.text = "Final Score: " + Mathf.FloorToInt(scoreManager.GetScore()).ToString();
+            Debug.Log("Final Score Updated.");
+        }
 
-        // Stop the game (optional)
-        Time.timeScale = 0f;
+        // Deactivate the top-right score display
+        if (scoreManager != null)
+            scoreManager.GameOver(); // Let ScoreManager handle its own UI logic
+
+        // Stop background and footstep audios
+        if (F_bg != null && F_bg.isPlaying)
+            F_bg.Stop();
+
+        if (F_running != null && F_running.isPlaying)
+            F_running.Stop();
+
+        // Play game-over audio
+        if (gameOverAudio != null && !gameOverAudio.isPlaying)
+            gameOverAudio.Play();
+
+        Time.timeScale = 0f; // Pause the game
     }
 
     public void RestartGame()
     {
-        // Restart the game by reloading the scene
-        Time.timeScale = 1f; // Reset time
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f; // Resume time
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the scene
+        Debug.Log("Game Restarted.");
     }
 }
