@@ -5,8 +5,15 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     public Rigidbody rb;
-    public float jumpSpeed;
-    public float gravityScale;
+
+    // Jump and gravity settings
+    public float baseJumpSpeed = 22f; // Initial jump speed
+    public float maxJumpSpeed = 44f; // Maximum jump speed
+    public float baseGravityScale = 5f; // Initial gravity scale
+    public float maxGravityScale = 23f; // Maximum gravity scale
+    private float jumpSpeed; // Current jump speed (updated dynamically)
+    private float gravityScale; // Current gravity scale (updated dynamically)
+
     private AudioSource jumpSound;     // AudioSource for the jump sound
     private AudioSource gameOverSound; // AudioSource for the game-over sound
     public float groundCheckDistance = 0.2f; // Distance for ground check
@@ -17,6 +24,10 @@ public class Jump : MonoBehaviour
 
     private void Start()
     {
+        // Initialize jump speed and gravity scale with base values
+        jumpSpeed = baseJumpSpeed;
+        gravityScale = baseGravityScale;
+
         // Get the jump sound from the child at position 0
         jumpSound = transform.GetChild(0).GetComponent<AudioSource>();
 
@@ -28,21 +39,21 @@ public class Jump : MonoBehaviour
     {
         // Check if the player is on the ground using raycast
         isGrounded = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, Ground);
-        
+
         // Reset jump count when the player is grounded
         if (isGrounded)
         {
             jumpCount = 0;
-           // Debug.Log("Grounded");
         }
 
         // Allow jumping only if the jump count is less than maxJumps
-        if (Input.GetKeyDown(KeyCode.Space)) // && jumpCount < maxJumps)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpAction();
-            
-
         }
+
+        // Adjust jumpSpeed and gravityScale based on SpeedManager's speed
+        AdjustJumpAndGravity();
     }
 
     private void FixedUpdate()
@@ -79,5 +90,22 @@ public class Jump : MonoBehaviour
         // Play the jump sound
         if (jumpSound != null)
             jumpSound.Play();
+    }
+
+    private void AdjustJumpAndGravity()
+    {
+        if (SpeedManager.Instance != null)
+        {
+            float currentSpeed = SpeedManager.Instance.GetCurrentSpeed();
+            float initialSpeed = SpeedManager.Instance.initialSpeed;
+            float maxSpeed = initialSpeed * SpeedManager.Instance.maxMultiplier;
+
+            // Calculate the interpolation factor (0 to 1)
+            float t = Mathf.Clamp01((currentSpeed - initialSpeed) / (maxSpeed - initialSpeed));
+
+            // Linearly interpolate jumpSpeed and gravityScale
+            jumpSpeed = Mathf.Lerp(baseJumpSpeed, maxJumpSpeed, t);
+            gravityScale = Mathf.Lerp(baseGravityScale, maxGravityScale, t);
+        }
     }
 }

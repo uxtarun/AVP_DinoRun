@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;  // To access UI components like Text
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverScreen;
-    public Text finalScoreText;  // Text UI to display the final score
-    public ScoreManager scoreManager;  // Reference to the ScoreManager to get the score
+    public Text finalScoreText; // Text UI to display the final score
+    public ScoreManager scoreManager; // Reference to the ScoreManager to get the score
 
     // UI elements to hide once the game starts
-    public GameObject uiElementToHide; // Reference to the UI element to hide after the game starts
+    public GameObject uiElementToHide;
 
     // References to audio sources
     public AudioSource gameOverAudio;
@@ -17,9 +17,19 @@ public class GameManager : MonoBehaviour
     public AudioSource F_running;
 
     private bool gameStarted = false; // Track whether the game has started
+    private bool isGameOver = false; // Track whether the game is over
+
+    private bool isPaused = true; // Track whether the game is in a paused state
 
     private void Start()
     {
+        if (isPaused)
+        {
+            // Pause the game initially
+            Time.timeScale = 0f;
+            Debug.Log("Game Paused: Press Space to Start.");
+        }
+
         // Attempt to assign background and footstep audio
         GameObject backgroundAudioObject = GameObject.FindGameObjectWithTag("backgroundAudio");
         GameObject footstepAudioObject = GameObject.FindGameObjectWithTag("footstepAudio");
@@ -29,24 +39,25 @@ public class GameManager : MonoBehaviour
 
         if (footstepAudioObject != null)
             F_running = footstepAudioObject.GetComponent<AudioSource>();
-
-        // Pause the game initially
-        Time.timeScale = 0f;
-        Debug.Log("Game Paused: Press Space to Start.");
     }
 
     private void Update()
     {
-        // Check if the game has not started and spacebar is pressed
-        if (!gameStarted && Input.GetKeyDown(KeyCode.Space))
+        if (!gameStarted && !isGameOver && Input.GetKeyDown(KeyCode.Space)) // Only start if game is not over
         {
             StartGame();
+        }
+        else if (isGameOver && Input.GetKeyDown(KeyCode.Space)) // Space after game over to restart the game
+        {
+            RestartGame();
         }
     }
 
     private void StartGame()
     {
         gameStarted = true;
+        isGameOver = false; // Reset game over state
+        isPaused = false; // Set the game state as unpaused
         Time.timeScale = 1f; // Resume the game
 
         // Hide the UI element once the game starts
@@ -70,6 +81,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over triggered!");
         gameStarted = false;
+        isGameOver = true; // Set game over state
 
         // Show the Game Over screen
         if (gameOverScreen != null)
@@ -81,13 +93,16 @@ public class GameManager : MonoBehaviour
         // Update the final score text
         if (scoreManager != null && finalScoreText != null)
         {
+            finalScoreText.gameObject.SetActive(true);
             finalScoreText.text = "Final Score: " + Mathf.FloorToInt(scoreManager.GetScore()).ToString();
-            Debug.Log("Final Score Updated.");
+            Debug.Log("Final Score Updated." + Mathf.FloorToInt(scoreManager.GetScore()).ToString());
+            Debug.Log("Is active? " + finalScoreText.gameObject.activeSelf);
+
         }
 
         // Deactivate the top-right score display
         if (scoreManager != null)
-            scoreManager.GameOver(); // Let ScoreManager handle its own UI logic
+            scoreManager.GameOver();
 
         // Stop background and footstep audios
         if (F_bg != null && F_bg.isPlaying)
@@ -105,8 +120,22 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1f; // Resume time
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the scene
+        Debug.Log("Restarting Game...");
+
+        // Reset SpeedManager to its default values
+        if (SpeedManager.Instance != null)
+        {
+            SpeedManager.Instance.ResetSpeed();
+        }
+
+        // Reset game state
+        gameStarted = false;
+        isGameOver = false;
+        isPaused = true;
+
+        // Resume time and reload the scene
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Debug.Log("Game Restarted.");
     }
 }

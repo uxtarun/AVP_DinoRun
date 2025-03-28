@@ -13,8 +13,11 @@ public class MoveGround : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Get the current speed from the SpeedManager
+        float currentSpeed = SpeedManager.Instance.GetCurrentSpeed();
 
-        transform.position += new Vector3(0, 0, -7) * Time.deltaTime;
+        // Move the ground tile based on the current speed
+        transform.position += new Vector3(0, 0, -currentSpeed) * Time.deltaTime;
 
     }
 }
